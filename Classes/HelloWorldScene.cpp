@@ -12,7 +12,7 @@ Scene* HelloWorld::createScene()
     auto layer = HelloWorld::create();
 
     // add layer as a child to scene
-    scene->addChild(layer);
+    scene->addChild(layer);	
 
     // return the scene
     return scene;
@@ -25,29 +25,15 @@ bool HelloWorld::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+		
         return false;
     }
+
+	bool idle = true; 
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create("CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
+	 
     auto sprite = Sprite::create("escenarioguay.png");
 
     // position the sprite on the center of the screen
@@ -55,18 +41,37 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-		
-	puf = new puffer(this);
-    
-    return true;
+	
+	auto puf1 = puffer::createAnimation(1);
+	auto puf2 = puffer::createAnimation(0);
+
+	this->addChild(puf1,0);
+	
+	 auto eventListener = EventListenerKeyboard::create();
+
+
+
+    eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event){
+
+        
+        switch(keyCode){
+           
+            case EventKeyboard::KeyCode::KEY_A:
+				if (idle != true){
+				addChild(puf2,1);
+				
+				}
+                break;
+				
+            }
+    };
+
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener,puf1);
+	
+			
+	return true;
 }
 
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
-{
-    Director::getInstance()->end();
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-}
+

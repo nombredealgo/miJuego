@@ -3,16 +3,15 @@
 
 #include "cocos2d.h"
 
-class puffer 
+class puffer:public cocos2d::Node
 {
 public:
-	puffer(cocos2d::Layer *layer);
-
+	static cocos2d::Sprite*createAnimation(int numeron);
+	CREATE_FUNC(puffer);
+	
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-
-	cocos2d::Sprite *pufferguay;
 };
 
 #endif // __PUFFER_H__

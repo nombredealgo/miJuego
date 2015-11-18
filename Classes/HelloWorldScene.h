@@ -11,13 +11,10 @@ public:
 
     virtual bool init();
     
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    
-    // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+   // implement the "static create()" method manually
+    CREATE_FUNC(HelloWorld);   
 private:
-	puffer *puf;
+		
 };
 
 #endif // __HELLOWORLD_SCENE_H__
