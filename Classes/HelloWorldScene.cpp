@@ -29,7 +29,7 @@ bool HelloWorld::init()
         return false;
     }
 
-	bool idle = true; 
+	 bool patada = false; 
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -45,33 +45,29 @@ bool HelloWorld::init()
 	auto puf1 = puffer::createAnimation(1);
 	auto puf2 = puffer::createAnimation(0);
 
-	this->addChild(puf1,0);
+	this->addChild(puf2);
 	
 	 auto eventListener = EventListenerKeyboard::create();
 
-
-
-    eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event){
-
+	
+     eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event){
         
         switch(keyCode){
            
             case EventKeyboard::KeyCode::KEY_A:
-				if (idle != true){
-				addChild(puf2,1);
-				
-				}
-                break;
-				
+				removeChild(puf1);
+				addChild(puf1);	
+				removeChild(puf2);
+                break;				
             }
-    };
-
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener,puf1);
+		
+		};
 	
-			
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener,puf2);
+	
 	return true;
+	
 }
-
 
 
 
