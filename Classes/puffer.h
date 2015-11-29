@@ -7,6 +7,7 @@ class puffer:public cocos2d::Node
 {
 public:
 	static cocos2d::Sprite*createAnimation(int numeron);
+	
 	CREATE_FUNC(puffer);
 	
 private:
