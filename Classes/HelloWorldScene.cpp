@@ -11,6 +11,7 @@ Scene* HelloWorld::createScene()
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
 
+	
     // add layer as a child to scene
     scene->addChild(layer);	
 
@@ -29,7 +30,8 @@ bool HelloWorld::init()
         return false;
     }
 
-	 bool patada = false; 
+	bool idle = true;
+	bool patada = false;
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -47,27 +49,33 @@ bool HelloWorld::init()
 
 	this->addChild(puf2);
 	
-	 auto eventListener = EventListenerKeyboard::create();
+
+	auto eventListener = EventListenerKeyboard::create();
 
 	
      eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event){
         
         switch(keyCode){
            
-            case EventKeyboard::KeyCode::KEY_A:
-				removeChild(puf1);
-				addChild(puf1);	
-				removeChild(puf2);
-                break;				
-            }
+		case EventKeyboard::KeyCode::KEY_A:
+				puf2->removeFromParentAndCleanup(TRUE);
+				addChild(puf1);
+
 		
-		};
+				
+		}
+	 };
+
+	 this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, puf2);
 	
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener,puf2);
-	
-	return true;
-	
+
+
+
+
+return true;
+
 }
+
 
 
 

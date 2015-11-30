@@ -16,7 +16,16 @@ Sprite *puffer::createAnimation(int numeron)
 
 	auto someSprite = Sprite::createWithSpriteFrameName("puffer1.png");
 
-	
+	Vector<SpriteFrame*> frames;
+	for (int i = 1; i <= 4; i++)
+	{
+		std::stringstream ss;
+		ss << "puffer" << i << ".png";
+		frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
+	}
+	// play the animation
+	Animation* anim1 = Animation::createWithSpriteFrames(frames, 0.2f);
+	//asomeSprite->runAction(Animate::create(anim1));
 
 	if (numeron==1){
 			// load all the animation frames into an array
@@ -29,26 +38,43 @@ Sprite *puffer::createAnimation(int numeron)
 			}
 						// play the animation
 				Animation* anim = Animation::createWithSpriteFrames(frames, 0.2f);
-				someSprite->runAction(Animate::create(anim));
-				someSprite->setPosition(100, 100);	
+				someSprite->setPosition(100, 100);
+
+				// create a few actions.
+			
+				auto canim = Animate::create(anim);
+
+				auto canim2 = Animate::create(anim1);
+
+				auto repite = Repeat::create(Animate::create(anim1),99999);
+
+				auto destro = RemoveSelf::create();
+				// create a sequence with the actions and callbacks
+				auto seq = Sequence::create(canim, repite, nullptr);
+
+				// run it
+				someSprite->runAction(seq);
+
+
+
+
+
 	}
+
+
+
+
 
 	else{
 
-			Vector<SpriteFrame*> frames;
-			for (int i = 1; i <= 4; i++)
-			{
-				std::stringstream ss;
-				ss << "puffer" << i << ".png";
-				frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
-			 }
-			// play the animation
-			Animation* anim = Animation::createWithSpriteFrames(frames, 0.2f);
-			someSprite->runAction(Animate::create(anim));
+		
 			someSprite->setPosition(100, 100);	
-			someSprite->runAction(RepeatForever::create(Animate::create(anim)));
+			someSprite->runAction(RepeatForever::create(Animate::create(anim1)));
+			
+
 	}
 	
+
 	
 	
 	return someSprite;
