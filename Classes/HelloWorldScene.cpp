@@ -44,9 +44,12 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
 	
-	auto puf1 = puffer::createAnimation(1);
+
 	auto puf2 = puffer::createAnimation(0);
 
+
+	// run it
+	
 	this->addChild(puf2);
 	
 
@@ -58,15 +61,15 @@ bool HelloWorld::init()
         switch(keyCode){
            
 		case EventKeyboard::KeyCode::KEY_A:
-				puf2->removeFromParentAndCleanup(TRUE);
-				addChild(puf1);
+			puf2->removeFromParentAndCleanup(TRUE);
+			auto puf1 = puffer::createAnimation(1);
+			addChild(puf1);
+			
 
-		
-				
 		}
 	 };
 
-	 this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, puf2);
+	 this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, sprite);
 	
 
 
