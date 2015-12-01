@@ -10,8 +10,10 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-
-	  
+	 bool agachadoactivo;
+	 bool patadactiva;
+	 bool puñoactivo;
+	 bool patada2activa;
     
    // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);   

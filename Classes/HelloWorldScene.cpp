@@ -29,9 +29,10 @@ bool HelloWorld::init()
 		
         return false;
     }
-
-	bool idle = true;
-	bool patada = false;
+	patada2activa = false;
+	agachadoactivo = false;
+	patadactiva = false;
+	puñoactivo = false;
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -45,12 +46,12 @@ bool HelloWorld::init()
     this->addChild(sprite, 0);
 	
 
-	auto puf2 = puffer::createAnimation(0);
+	auto idle = puffer::createAnimation(0);
 
 
 	// run it
 	
-	this->addChild(puf2);
+	this->addChild(idle);
 	
 
 	auto eventListener = EventListenerKeyboard::create();
@@ -61,11 +62,37 @@ bool HelloWorld::init()
         switch(keyCode){
            
 		case EventKeyboard::KeyCode::KEY_A:
-			puf2->removeFromParentAndCleanup(TRUE);
-			auto puf1 = puffer::createAnimation(1);
-			addChild(puf1);
-			
-
+			if (patadactiva == false){
+				patadactiva=true;
+				idle->removeFromParentAndCleanup(TRUE);
+				auto patada = puffer::createAnimation(1);
+				addChild(patada);
+			}
+			break;
+		case EventKeyboard::KeyCode::KEY_S:
+			if (agachadoactivo == false){
+				agachadoactivo = true;
+  			    idle->removeFromParentAndCleanup(TRUE);
+				auto agachado = puffer::createAnimation(2);
+				addChild(agachado);
+			}
+			break;
+		 case EventKeyboard::KeyCode::KEY_D:
+			if (puñoactivo == false){
+				puñoactivo = true;
+				idle->removeFromParentAndCleanup(TRUE);
+				auto puñetazo = puffer::createAnimation(3);
+				addChild(puñetazo);
+			}
+			break;
+		   case EventKeyboard::KeyCode::KEY_F:
+			if (patada2activa == false){
+				patada2activa = true;
+				idle->removeFromParentAndCleanup(TRUE);
+				auto patadaup = puffer::createAnimation(4);
+				addChild(patadaup);
+			}
+			break;
 		}
 	 };
 
