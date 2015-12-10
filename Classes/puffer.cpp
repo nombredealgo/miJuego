@@ -136,6 +136,33 @@ Sprite *puffer::createAnimation(int numeron)
 
 	}
 
+	if (numeron== 5){
+			// load all the animation frames into an array
+			Vector<SpriteFrame*> frames;
+			for (int i = 13; i <= 15; i++)
+			{
+				std::stringstream ss;
+				ss << "puffer" << i << ".png";
+				frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
+			}
+						// play the animation
+				Animation* anim = Animation::createWithSpriteFrames(frames, 0.2f);
+				someSprite->setPosition(100, 100);
+
+				// create a few actions.
+			
+				auto canim = Animate::create(anim);
+
+				auto repite = Repeat::create(Animate::create(anim1),99999);
+
+				// create a sequence with the actions and callbacks
+				auto seq = Sequence::create(canim, repite, nullptr);
+
+				// run it
+				someSprite->runAction(seq);
+
+
+	}
 
 
 
