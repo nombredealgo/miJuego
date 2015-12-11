@@ -16,15 +16,21 @@ public:
 	 bool patada2activa;
 	 bool patadavolac;
      
+
+
 	void loadchange(float dt);
 	bool load;
 	void nomuerto (float dt);
 	int contador;
 	int random;
 	bool muerto;
-	void update(float dt);	
-
+	void update(float dt);
 	Node* anoobis;
+
+	
+	int vidapuf;
+	int vidaene;
+
    // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);   
 	

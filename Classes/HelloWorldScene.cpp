@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "puffer.h"
 #include "anubis.h"
+#include "vida.h"
 
 USING_NS_CC;
 
@@ -39,9 +40,9 @@ bool HelloWorld::init()
 	puñoactivo = true;
 	patadavolac=true;
 
-	anoobis = anubis::createAnimation(0,true);
-
-	    
+	vidapuf = 100;
+	vidaene = 100;
+	
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	 
@@ -53,20 +54,23 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
 	
-
+	anoobis = anubis::createAnimation(0,true);	    
 	auto idle = puffer::createAnimation(0);
+
+	auto vidapuffer = vida::createVida(vidapuf,30);
+	auto vidaanoobis = vida::createVida(vidaene,430);
 	
-	this->schedule(schedule_selector(HelloWorld::update),0.9);
-	this->schedule(schedule_selector(HelloWorld::loadchange),0.9);
-	this->schedule(schedule_selector(HelloWorld::nomuerto),0.9);
+	this->schedule(schedule_selector(HelloWorld::update),0.9f);
+	this->schedule(schedule_selector(HelloWorld::loadchange),0.9f);
+	this->schedule(schedule_selector(HelloWorld::nomuerto),0.9f);
 	
 	// run it
 	
 	this->addChild(idle);
-	
+	this->addChild(vidapuffer);
+	this->addChild(vidaanoobis);
 	this->addChild(anoobis);
-	//this->nomuerto(anoobis);
-
+	
 	
 	auto eventListener = EventListenerKeyboard::create();
 
@@ -76,17 +80,26 @@ bool HelloWorld::init()
         switch(keyCode){
            
 		case EventKeyboard::KeyCode::KEY_A:
-			if (patadactiva == false){
-				idle->removeFromParentAndCleanup(TRUE);
-				auto patada = puffer::createAnimation(1);
-				addChild(patada);
-				patadactiva=true;
-			}
+			
 			if (agachadoactivo == false){				
   			    idle->removeFromParentAndCleanup(TRUE);
 				auto agachado = puffer::createAnimation(2);
 				addChild(agachado);
 				agachadoactivo = true;
+			}
+			if (patadactiva == false){
+				
+				vidaene = vidaene-21;
+				vidaanoobis->removeFromParentAndCleanup(TRUE);				
+				auto vidaanoobis = vida::createVida(vidaene,430);//da error solo funciona una vez
+				addChild(vidaanoobis);
+
+				idle->removeFromParentAndCleanup(TRUE);
+				auto patada = puffer::createAnimation(1);
+				addChild(patada);
+				patadactiva=true;
+
+				
 			}
 			break;
 
@@ -134,7 +147,7 @@ void HelloWorld::nomuerto(float dt){
 	
 	if (contador%3==0){
 		random = rand () % 3;
-		anoobis ->removeFromParentAndCleanup(true);
+		anoobis ->removeFromParentAndCleanup(TRUE);
 		auto anoobismovimiento = anubis::createAnimation(random,load);
 		addChild(anoobismovimiento);
 	}
@@ -169,6 +182,4 @@ void HelloWorld::loadchange(float dt){
 		puñoactivo = false;
 		patadavolac=false;
 		}
-
-	CCLOG("%d", load);
 }
