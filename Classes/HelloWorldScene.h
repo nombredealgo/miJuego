@@ -26,10 +26,12 @@ public:
 	bool muerto;
 	void update(float dt);
 	Node* anoobis;
-
+	Node* vidapuffer;
 	
 	int vidapuf;
 	int vidaene;
+	int hpanoobisY;
+	int hpapufY;
 
    // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);   

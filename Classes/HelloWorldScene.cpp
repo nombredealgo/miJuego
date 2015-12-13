@@ -46,7 +46,7 @@ bool HelloWorld::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	 
-    auto sprite = Sprite::create("escenarioguay.png");
+    auto sprite = Sprite::create("escenarionuevo.png");
 
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -57,7 +57,7 @@ bool HelloWorld::init()
 	anoobis = anubis::createAnimation(0,true);	    
 	auto idle = puffer::createAnimation(0);
 
-	auto vidapuffer = vida::createVida(vidapuf,30);
+	vidapuffer = vida::createVida(vidapuf,30);
 	auto vidaanoobis = vida::createVida(vidaene,430);
 	
 	this->schedule(schedule_selector(HelloWorld::update),0.9f);
@@ -71,7 +71,9 @@ bool HelloWorld::init()
 	this->addChild(vidaanoobis);
 	this->addChild(anoobis);
 	
-	
+	hpanoobisY =200;
+	hpapufY =200;
+
 	auto eventListener = EventListenerKeyboard::create();
 
 	
@@ -90,9 +92,9 @@ bool HelloWorld::init()
 			if (patadactiva == false){
 				
 				vidaene = vidaene-21;
-				vidaanoobis->removeFromParentAndCleanup(TRUE);				
-				auto vidaanoobis = vida::createVida(vidaene,430);//da error solo funciona una vez
-				addChild(vidaanoobis);
+				hpanoobisY = hpanoobisY -21;
+				vidaanoobis->setScaleY(vidaene);
+				vidaanoobis->setPosition(430,hpanoobisY);
 
 				idle->removeFromParentAndCleanup(TRUE);
 				auto patada = puffer::createAnimation(1);
@@ -107,25 +109,43 @@ bool HelloWorld::init()
 		case EventKeyboard::KeyCode::KEY_S:
 			if (patadavolac == false){				
 				idle->removeFromParentAndCleanup(TRUE);
+				
 				auto patadavol = puffer::createAnimation(5);
 				addChild(patadavol);
 				patadavolac = true;
+
+				vidaene = vidaene-21;
+				hpanoobisY = hpanoobisY -21;
+				vidaanoobis->setScaleY(vidaene);
+				vidaanoobis->setPosition(430,hpanoobisY);
 			}
 			break;
 		 case EventKeyboard::KeyCode::KEY_D:
 			if (puñoactivo == false){
 				idle->removeFromParentAndCleanup(TRUE);
+				
 				auto puñetazo = puffer::createAnimation(3);
 				addChild(puñetazo);
 				puñoactivo = true;
+
+				vidaene = vidaene-21;
+				hpanoobisY = hpanoobisY -21;
+				vidaanoobis->setScaleY(vidaene);
+				vidaanoobis->setPosition(430,hpanoobisY);
 			}
 			break;
 		  case EventKeyboard::KeyCode::KEY_F:
 			if (patada2activa == false){				
 				idle->removeFromParentAndCleanup(TRUE);
+				
 				auto patadaup = puffer::createAnimation(4);
 				addChild(patadaup);
 				patada2activa = true;
+
+				vidaene = vidaene-21;
+				hpanoobisY = hpanoobisY -21;
+				vidaanoobis->setScaleY(vidaene);
+				vidaanoobis->setPosition(430,hpanoobisY);
 			}
 			break;	
 		
@@ -134,9 +154,6 @@ bool HelloWorld::init()
 
 	 this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, sprite);
 	
-
-
-
 
 return true;
 
@@ -147,9 +164,19 @@ void HelloWorld::nomuerto(float dt){
 	
 	if (contador%3==0){
 		random = rand () % 3;
-		anoobis ->removeFromParentAndCleanup(TRUE);
+
+		anoobis->removeFromParentAndCleanup(TRUE);
+		//anoobis->release();
+
 		auto anoobismovimiento = anubis::createAnimation(random,load);
 		addChild(anoobismovimiento);
+
+		if (load == false){
+			vidapuf = vidapuf-21;
+			hpapufY = hpapufY -21;
+			vidapuffer->setScaleY(vidapuf);
+			vidapuffer->setPosition(30,hpapufY-21);
+		}
 	}
 
 }

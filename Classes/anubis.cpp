@@ -13,13 +13,13 @@ Sprite *anubis::createAnimation(int numeron, bool load)
 	cacher->addSpriteFramesWithFile("anoobisSpritesheet.plist");
 	
 	
-	auto someSprite = Sprite::createWithSpriteFrameName("anoobis1.png");
+	auto someSprite = Sprite::createWithSpriteFrameName("anoobisIdle1.png");
 
 	Vector<SpriteFrame*> frames;
 	for (int i = 1; i < 2; i++)
 	{
 		std::stringstream ss;
-		ss << "anoobis" << i << ".png";
+		ss << "anoobisIdle" << i << ".png";
 		frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
 	}
 	// play the animation
@@ -32,10 +32,10 @@ Sprite *anubis::createAnimation(int numeron, bool load)
 		if (numeron==1){
 			// load all the animation frames into an array
 			Vector<SpriteFrame*> frames;
-			for (int i = 4; i <= 7; i++)
+			for (int i = 1; i <= 4; i++)
 			{
 				std::stringstream ss;
-				ss << "anoobis" << i << ".png";
+				ss << "anoobisSpin" << i << ".png";
 				frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
 			}
 						// play the animation
@@ -58,10 +58,10 @@ Sprite *anubis::createAnimation(int numeron, bool load)
 		if (numeron==2){
 			// load all the animation frames into an array
 			Vector<SpriteFrame*> frames;
-			for (int i = 8; i <= 12; i++)
+			for (int i = 1; i <= 6; i++)
 			{
 				std::stringstream ss;
-				ss << "anoobis" << i << ".png";
+				ss << "anoobisDown" << i << ".png";
 				frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
 			}
 						// play the animation
@@ -87,10 +87,10 @@ Sprite *anubis::createAnimation(int numeron, bool load)
 		//if (numeron==2){
 				// load all the animation frames into an array
 				Vector<SpriteFrame*> frames;
-				for (int i = 2; i <= 3; i++)
+				for (int i = 1; i <= 2; i++)
 				{
 					std::stringstream ss;
-					ss << "anoobis" << i << ".png";
+					ss << "anoobisUp" << i << ".png";
 					frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
 				}
 							// play the animation
